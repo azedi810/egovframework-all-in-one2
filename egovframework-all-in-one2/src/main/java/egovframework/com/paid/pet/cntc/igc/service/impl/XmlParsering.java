@@ -209,4 +209,44 @@ public class XmlParsering {
 		System.out.println("Response= " + response.toString());
 	}
 	
+	/**
+	 * xml request 
+	 * 검색어 : How to pass XML request body in rest post method
+	 * URL : https://stackoverflow.com/questions/30862275/java-how-to-pass-xml-request-body-in-rest-post-method
+	 * @param  
+	 * @return forward:/uss/cmt/EgovCmtMange.do
+	 * @throws java.io.IOException 
+	 */
+
+	public void xmlReqRestPost()  {
+        try {
+            String url = "pass your url";
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type",
+                    "application/xml;charset=utf-8");
+            String urlParameters = "<Request xmlns=\"abc\"><ID>1</ID><Password></Password></Request>";
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.flush();
+            wr.close();
+           // String responseStatus = con.getResponseMessage();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            System.out.println("response:" + response.toString());
+
+
+        } catch (java.io.IOException e) {
+            System.out.println("error" + e.getMessage());
+        }
+	}
 }

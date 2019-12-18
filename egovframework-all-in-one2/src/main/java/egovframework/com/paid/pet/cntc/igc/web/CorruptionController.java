@@ -1,7 +1,5 @@
 package egovframework.com.paid.pet.cntc.igc.web;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,8 @@ import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.annotation.IncludedInfo;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.com.paid.pet.cntc.igc.service.CorruptionService;
+import egovframework.com.paid.pet.cntc.igc.service.impl.vo.EmployeeListVO;
+import egovframework.com.paid.pet.cntc.igc.service.impl.vo.EmployeeVO;
 import egovframework.com.uss.cmt.service.CmtDefaultVO;
 import egovframework.com.uss.cmt.service.CmtManageVO;
 import egovframework.com.uss.cmt.service.EgovCmtManageService;
@@ -102,13 +102,20 @@ public class CorruptionController {
 	 * @throws Exception
 	 */
 	@IncludedInfo(name = "출퇴근관리", order = 950, gid = 50)
-	@RequestMapping(value = "/paid/pet/cntc/igc/GetCvplCnvrAt2.do")
-	public String selectGetCvplCnvrAt2(@ModelAttribute("cmtSearchVO") CmtDefaultVO cmtSearchVO, ModelMap model) throws Exception {
+	@RequestMapping(value = "/paid/pet/cntc/igc/ResponseTest1.do")
+	public EmployeeListVO  responseTest1(@ModelAttribute("cmtSearchVO") CmtDefaultVO cmtSearchVO, ModelMap model) throws Exception {
 
-		List<?> cmtManageList = cmtManageService.selectCmtInfoList(cmtSearchVO);
-		model.addAttribute("resultList", cmtManageList);
-
-		return "egovframework/com/uss/cmt/EgovCmtManageList";
+        EmployeeListVO employees = new EmployeeListVO();
+        
+        EmployeeVO empOne = new EmployeeVO(1,"Lokesh","Gupta","howtodoinjava@gmail.com");
+        EmployeeVO empTwo = new EmployeeVO(2,"Amit","Singhal","asinghal@yahoo.com");
+        EmployeeVO empThree = new EmployeeVO(3,"Kirti","Mishra","kmishra@gmail.com");
+         
+        employees.getEmployees().add(empOne);
+        employees.getEmployees().add(empTwo);
+        employees.getEmployees().add(empThree);
+         
+        return employees;
 	}
 
 }
